@@ -30,7 +30,7 @@ deploy:
 - provider: GitHub
   auth_token:
     secure: wyRf/wHvY67t+0Lni9CUlbQ77RpieO1OOAN4f47vSwqgxAx9KCfAlH6iMbJYl4xh
-  artifact: /azure-file-uplaoder-.*\.nupkg/
+  artifact: /azure-file-uploader-.*\.zip/
   on:
     branch: master
     appveyor_repo_tag: true
