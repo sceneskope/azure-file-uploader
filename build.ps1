@@ -31,13 +31,13 @@ dotnet clean -c $Configuration
 Write-Host "Building"
 mkdir -Force $packageOutputFolder | Out-Null
 
-Get-ChildItem $packageOutputFolder | Remove-Item
+Get-ChildItem $packageOutputFolder | Remove-Item -Recurse
 dotnet publish -c $Configuration --version-suffix=$buildSuffix --output $packageOutputFolder
 if ($LastExitCode -ne 0) { 
     Write-Host "Error with build, aborting build." -Foreground "Red"
     Exit 1
 }
-Compress-Archive -Path $packageOutputFolder -DestinationPath $PSScriptRoot\azure-file-uploader-$packSuffix.zip
+Compress-Archive -Force -Path $packageOutputFolder -DestinationPath $PSScriptRoot\azure-file-uploader-$packSuffix.zip
 
 Write-Host "Complete"
 

@@ -3,6 +3,7 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -23,7 +24,13 @@ namespace UploadFiles
         {
             var container = GetContainer(arguments);
             var originalLog = Log.Logger;
-            Log.Logger = originalLog.ForContext("StorageAccount", arguments.AccountName).ForContext("StorageContainer", arguments.ContainerName);
+            var version = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+            var modifiedLogger = originalLog
+                .ForContext("Version", version)
+                .ForContext("StorageAccount", arguments.AccountName)
+                .ForContext("StorageContainer", arguments.ContainerName);
+            
+            Log.Logger = modifiedLogger;
             await container.CreateIfNotExistsAsync(BlobContainerPublicAccessType.Off, null, null, ct).ConfigureAwait(false);
             Log.Information("Looking for matching files");
 
