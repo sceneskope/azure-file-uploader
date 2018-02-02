@@ -1,0 +1,7 @@
+package/
+*.zip
+bin/
+obj/
+.vs/
+.vscode/
+
