@@ -17,7 +17,7 @@ environment:
     secure: eaiytjZ8451bGqdim49VhzfsYNDviMmEm/lMbc34oqmznMUEb0BW/9/yFckWyzf1
 
 build_script:
-- ps: .\build.ps1 -RunTests $false
+- ps: .\build.ps1
 
 test: off
 
